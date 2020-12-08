@@ -1,6 +1,23 @@
 import React, { Component } from 'react'
 
 export default class Register extends Component {
+    constructor() {
+
+        super();
+        this.state  = {
+            username :'',
+            password:'',
+            password2:'',
+            role:'',
+            errors:{}
+        }
+    }
+
+    onSubmit(e) {
+
+        e.preventDefault();
+        console.log('hello from submit');
+    }
     render() {
         return (
             <div className="register">
@@ -9,13 +26,13 @@ export default class Register extends Component {
                 <div className="col-md-8 m-auto">
                   <h1 className="display-4 text-center">Sign Up</h1>
                   <p className="lead text-center">Create your DevConnector account</p>
-                  <form action="create-profile.html">
+                  <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                       <input type="text" className="form-control form-control-lg" placeholder="Name" name="name" required />
                     </div>
                     <div className="form-group">
                       <input type="email" className="form-control form-control-lg" placeholder="Email Address" name="email" />
-                      <small classNameName="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
+                      <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
                     </div>
                     <div className="form-group">
                       <input type="password" className="form-control form-control-lg" placeholder="Password" name="password" />
