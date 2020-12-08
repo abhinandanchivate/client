@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import axios from 'axios';
 export default class Register extends Component {
     constructor() {
 
@@ -24,9 +24,20 @@ export default class Register extends Component {
     }
     onSubmit(e) {
 
+        const newUser = {
+            username : this.state.username,
+            email:this.state.email,
+            password:this.state.password,
+            role:['user']
+        };
         e.preventDefault();
         console.log('hello from submit');
         console.log(JSON.stringify(this.state));
+        axios.post('http://localhost:9050/api/auth/signup',newUser)
+        .then(res=>console.log(JSON.stringify(res)))
+        .catch(err=>console.log(JSON.stringify(err)));
+
+
     }
     render() {
         return (
