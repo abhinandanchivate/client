@@ -1,6 +1,38 @@
 import './App.css';
-
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
+import Header from './components/layouts/Header'
+import Footer from './components/layouts/Footer'
+import Landing from './components/layouts/Landing'
 import PostList from './components/layouts/PostList'
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+
+// redux
+import {Provider} from 'react-redux'
+import store from './redux/store/store'
+function App() {
+  return (
+    <Provider store={store}>
+    <div className="App">
+    <Router>
+<Header></Header>
+<Route exact path="/" component={Landing}></Route>
+<Route exact path="/login" component={Login}></Route>
+<Route exact path="/register" component={Register}></Route>
+
+<Footer></Footer>
+</Router> 
+    </div>
+    </Provider>
+  );
+}
+
+export default App;
+
+
+
+
+
 
 const postList=[
   {
@@ -25,30 +57,6 @@ const postList=[
   }
 ]
 
-function App() {
-  return (
-    <div className="App">
-     <PostList posts={postList}></PostList>
-    </div>
-  );
-}
-
-export default App;
 
 
 
-
-
-
-
-
-
-
-{/* <Router>
-<Header></Header>
-<Route exact path="/" component={Landing}></Route>
-<Route exact path="/login" component={Login}></Route>
-<Route exact path="/register" component={Register}></Route>
-<Route exact path="/sample" component={sample}></Route>
-<Footer></Footer>
-</Router> */}
