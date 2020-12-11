@@ -1,4 +1,4 @@
-import {REGISTER_SUCCESS} from '../actions/types'
+import {LOGIN_SUCCESS, LOGOUT, REGISTER_SUCCESS} from '../actions/types'
 const initialState = {
 token : localStorage.getItem('token'),
 isAuthenticated : false,
@@ -13,6 +13,21 @@ export default (state = initialState, action) => {
     case REGISTER_SUCCESS:
         return { ...state, ...payload,
         isAuthenticated:false}
+
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                ...payload,
+                isAuthenticated:true
+            }
+            case LOGOUT:{
+                return {
+                    ...state,
+                    token : null,
+                    isAuthenticated:false,
+                    user :null
+                }
+            }
 
     default:
         return state
