@@ -1,7 +1,7 @@
 import {REGISTER_SUCCESS} from '../actions/types'
 const initialState = {
 token : localStorage.getItem('token'),
-isAuthenticated : null,
+isAuthenticated : false,
 loading : true,
 user:null
 }
@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
 
     case REGISTER_SUCCESS:
         return { ...state, ...payload,
-        isAuthenticated:true}
+        isAuthenticated:false}
 
     default:
         return state
