@@ -1,45 +1,44 @@
-import React, { Component } from 'react'
-import axios from 'axios';
-export default class Register extends Component {
-    constructor() {
+import React, { Component, useState } from 'react'
+import {Redirect} from 'react-router-dom'
 
-        super();
-        this.state  = {
-            email:'',
-            username :'',
-            password:'',
-            password2:'',
-            role:'',
-            errors:{}
-        };
-        this.onChange=this.onChange.bind(this);
-        // we will bind this object with ur event
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import {registerUser} from '../../redux/actions/authAction'
+ const Register = (registerUser,isAuthenticated) => {
+  const [formData,setFormData] = useState({username : '',
+email:'',
+password:'',
+password2:''})
+const {username,email,password,password2} = formData;
+const onChange=(e) =>{
 
-    onChange(e) {
+ setFormData({...formData,[e.target.name]:e.target.value})
+  //when state of ur controller is changing then we are holding that changed value in state.
+}
+const onSubmit =(e)=>{
+  const newUser = {
+    username : this.state.username,
+    email:this.state.email,
+    password:this.state.password,
+    role:['user']
+};
+e.preventDefault();
+console.log('hello from submit');
+console.log(JSON.stringify(formData));
+if(password!== password2) {
+  console.log('problem')
+}
+else{
+  // action 
+  registerUser(formData)
+}
 
-        this.setState({[e.target.name]:e.target.value});
-        //when state of ur controller is changing then we are holding that changed value in state.
-    }
-    onSubmit(e) {
-
-        const newUser = {
-            username : this.state.username,
-            email:this.state.email,
-            password:this.state.password,
-            role:['user']
-        };
-        e.preventDefault();
-        console.log('hello from submit');
-        console.log(JSON.stringify(this.state));
-       
-
-
-    }
-    render() {
-        return (
-            <div className="register">
+};
+if(isAuthenticated) {
+  return <Redirect to='/dashboard'></Redirect>
+}
+  return (
+    <div className="register">
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
@@ -65,8 +64,19 @@ export default class Register extends Component {
               </div>
             </div>
           </div>
-        
-        
-        )
-    }
+  )
 }
+
+Register.propTypes = {
+  prop: PropTypes
+}
+
+const mapStateToProps = (state) => ({
+  
+})
+
+const mapDispatchToProps = {
+  
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
